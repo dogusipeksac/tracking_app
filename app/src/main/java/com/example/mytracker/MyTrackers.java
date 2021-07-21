@@ -53,10 +53,11 @@ public class MyTrackers extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GlobalInfo.myTrackers.remove(listnewsData.get(position).phoneNumber);
                 DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
-                mDatabaseReference.child("Users").child(listnewsData.get(position).phoneNumber)
+                mDatabaseReference.child("Users").child(GlobalInfo.phoneNumber)
                         .child("Finders")
-                        .child(GlobalInfo.phoneNumber)
+                        .child(listnewsData.get(position).phoneNumber)
                         .removeValue();
+
                 GlobalInfo globalInfo=new GlobalInfo(getApplicationContext());
                 globalInfo.SaveData();
                 refresh();
@@ -166,16 +167,16 @@ public class MyTrackers extends AppCompatActivity {
                                     ContactsContract.CommonDataKinds.Phone.CONTACT_ID +" = "+ id,
                                     null, null);
                             phones.moveToFirst();
-                            cNumber =GlobalInfo.formatPhoneNumber (phones.getString(phones.getColumnIndex("data1")));
+                            cNumber =GlobalInfo.formatPhoneNumber(phones.getString(phones.getColumnIndex("data1")));
                             System.out.println("number is:"+cNumber);
                         }
                         String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
                         GlobalInfo.myTrackers.put(cNumber,name);
                         DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
-                        mDatabaseReference.child("Users").child(cNumber)
+                        mDatabaseReference.child("Users").child(GlobalInfo.phoneNumber)
                                 .child("Finders")
-                                .child(GlobalInfo.phoneNumber)
+                                .child(cNumber)
                                 .setValue(true);
                         GlobalInfo globalInfo=new GlobalInfo(this);
                         globalInfo.SaveData();

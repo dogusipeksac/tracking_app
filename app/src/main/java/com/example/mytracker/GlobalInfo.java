@@ -25,7 +25,7 @@ public class GlobalInfo {
         DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
         mDatabaseReference.child("Users").child(userPhone)
                 .child("Updates")
-                .setValue(df.format(date).toString());
+                .setValue(df.format(date));
     }
     public static String formatPhoneNumber(String Oldnmber){
         try{

@@ -7,7 +7,7 @@
        android:title="help"
         android:icon="@drawable/ic_local_hospital_white_24dp"
         app:showAsAction="always" />
-   <item android:id="@+id/setting"
+   <item android:id="@+id/addTracker"
        android:title="Setting"
        android:icon="@drawable/ic_perm_identity_white_24dp"
        app:showAsAction="always" />
