@@ -41,7 +41,6 @@ public class MyTrackers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_trackers);
-
         //add data and view it
        // listnewsData.add(new AdapterItems("dogusipeksac","05050012248"));
         myadapter=new MyCustomAdapter(listnewsData);
@@ -53,9 +52,9 @@ public class MyTrackers extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GlobalInfo.myTrackers.remove(listnewsData.get(position).phoneNumber);
                 DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
-                mDatabaseReference.child("Users").child(GlobalInfo.phoneNumber)
+                mDatabaseReference.child("Users").child(listnewsData.get(position).phoneNumber)
                         .child("Finders")
-                        .child(listnewsData.get(position).phoneNumber)
+                        .child(GlobalInfo.phoneNumber)
                         .removeValue();
 
                 GlobalInfo globalInfo=new GlobalInfo(getApplicationContext());
@@ -173,10 +172,11 @@ public class MyTrackers extends AppCompatActivity {
                         String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
 
                         GlobalInfo.myTrackers.put(cNumber,name);
-                        DatabaseReference mDatabaseReference= FirebaseDatabase.getInstance().getReference();
-                        mDatabaseReference.child("Users").child(GlobalInfo.phoneNumber)
+                        DatabaseReference mDatabaseReference= FirebaseDatabase
+                                .getInstance().getReference();
+                        mDatabaseReference.child("Users").child(cNumber)
                                 .child("Finders")
-                                .child(cNumber)
+                                .child(GlobalInfo.phoneNumber)
                                 .setValue(true);
                         GlobalInfo globalInfo=new GlobalInfo(this);
                         globalInfo.SaveData();
